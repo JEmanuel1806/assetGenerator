@@ -1,0 +1,156 @@
+local transf = require "transf"
+local ParamBuilder = require "parambuilder_v1_1"
+local constructionutil = require "constructionutil"
+local positionx = ParamBuilder.Slider("offsetx", _("offset x-axis"), ParamBuilder.rangeSymm(1,0.01), 1/0.01, _("jrm_param_offsetx_tooltip") )
+local model_icons = {
+                        "ui/models_small/vehicle/waggon//UagpsA1_menu@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_asset.con@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_andre@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_andre2@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_blank@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_blank2@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_cafgrains@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_cargill@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_cargill2@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_ccandre@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_ciwc@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_cmt@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_cooperl@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_cooperl2@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_cooperl3@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_ctc@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_ctc1980@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_ctc1992@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_ermewa@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_ermewa2@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_esmery@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_granit@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_guyomarch@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_invivo@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_levy@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_monfer@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_monfer2@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_monfer3@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_monfer4@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_monferEx@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_mro@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_rochelle@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_shgt@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_sica@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_sigma@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_simotra@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_sofidic@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_stemi@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_stiv@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_tmf@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_tmfcita@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_tmfcita2@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_transfesa@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_uncac@2x.tga",
+						"ui/models_small/vehicle/waggon//uagpsA_wagrains@2x.tga",
+						
+					}
+local model_values = {
+                        "asset/UagpsA1_menu.mdl,
+						"asset/uagpsA_asset.con,
+						"asset/uagpsA_andre.mdl,
+						"asset/uagpsA_andre2.mdl,
+						"asset/uagpsA_blank.mdl,
+						"asset/uagpsA_blank2.mdl,
+						"asset/uagpsA_cafgrains.mdl,
+						"asset/uagpsA_cargill.mdl,
+						"asset/uagpsA_cargill2.mdl,
+						"asset/uagpsA_ccandre.mdl,
+						"asset/uagpsA_ciwc.mdl,
+						"asset/uagpsA_cmt.mdl,
+						"asset/uagpsA_cooperl.mdl,
+						"asset/uagpsA_cooperl2.mdl,
+						"asset/uagpsA_cooperl3.mdl,
+						"asset/uagpsA_ctc.mdl,
+						"asset/uagpsA_ctc1980.mdl,
+						"asset/uagpsA_ctc1992.mdl,
+						"asset/uagpsA_ermewa.mdl,
+						"asset/uagpsA_ermewa2.mdl,
+						"asset/uagpsA_esmery.mdl,
+						"asset/uagpsA_granit.mdl,
+						"asset/uagpsA_guyomarch.mdl,
+						"asset/uagpsA_invivo.mdl,
+						"asset/uagpsA_levy.mdl,
+						"asset/uagpsA_monfer.mdl,
+						"asset/uagpsA_monfer2.mdl,
+						"asset/uagpsA_monfer3.mdl,
+						"asset/uagpsA_monfer4.mdl,
+						"asset/uagpsA_monferEx.mdl,
+						"asset/uagpsA_mro.mdl,
+						"asset/uagpsA_rochelle.mdl,
+						"asset/uagpsA_shgt.mdl,
+						"asset/uagpsA_sica.mdl,
+						"asset/uagpsA_sigma.mdl,
+						"asset/uagpsA_simotra.mdl,
+						"asset/uagpsA_sofidic.mdl,
+						"asset/uagpsA_stemi.mdl,
+						"asset/uagpsA_stiv.mdl,
+						"asset/uagpsA_tmf.mdl,
+						"asset/uagpsA_tmfcita.mdl,
+						"asset/uagpsA_tmfcita2.mdl,
+						"asset/uagpsA_transfesa.mdl,
+						"asset/uagpsA_uncac.mdl,
+						"asset/uagpsA_wagrains.mdl,
+						
+					}
+local assetmodel = ParamBuilder.IconButton("type_param", _("vehicle"), model_icons, model_values, 1, _("jrm_param_type_tooltip") )
+
+function data()
+
+return {
+	type = "ASSET_TRACK",
+	description = {
+			name = _("mod_name"),
+	},
+	availability =
+	{
+			yearFrom = 1970
+			yearTo = 0,
+	},
+	buildMode = "MULTI",
+	categories = { "tracks", "jays_mods" },
+	order = -2046867593,
+	skipCollision = true,
+	autoRemovable = false,
+	params = {
+		{
+			key = "position",
+			name = _("height"),
+			uiType = "BUTTON",
+			values = { _("ground"), _("rail") },
+			tooltip = _("height_tooltip"),
+			defaultIndex = 1,
+		},
+		positionx.params,
+		assetmodel.params,
+	},
+	updateFn = function(params)
+		local trax = positionx.getValue(params)
+		local height = 0
+		if params.position == 1 then
+			height = 1.05
+		end
+
+	local result = { }
+	result.models = { }
+
+	table.insert(result.models, {
+		id = assetmodel.getValue(params),
+		transf = constructionutil.rotateTransf(params, { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, trax, 0, height, 1 }),
+	} )
+
+		result.terrainAlignmentLists = { {
+			type = "EQUAL",
+			faces =  { }
+		} }
+
+		return result
+	end
+}
+
+end

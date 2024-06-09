@@ -1,0 +1,82 @@
+function data()
+return {
+	boundingInfo = {
+		bbMax = { 1.5, 1.5, 1.5, },
+		bbMin = { -1.5, -1.5, -1.5, },
+	},
+	collider = {
+		params = {
+			halfExtents = { 1.5, 1.5, 1.5, },
+		},
+		transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+		type = "BOX",
+	},
+	lods = {
+		{
+			node = {
+				children = {
+					{
+						materials = { "missing_object.mtl", },
+						mesh = "cube_1x1_lod0.msh",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+					},
+				},
+				transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 500,
+		},
+	},
+	metadata = {
+		availability = {
+			yearFrom = 1,
+			yearTo = 1,
+		},
+		cost = {
+			price = 0,
+		},
+		description = {
+			name = _("mod_name"),
+		},
+		maintenance = {
+			lifespan = 29220,
+			runningCosts = 0,
+		},
+		railVehicle = {
+			configs = {
+				{
+					axles = { },
+				},
+			},
+			engines = { },
+			soundSet = { name = "",	},
+			topSpeed = 0,
+			weight = 0,
+		},
+		transportVehicle = {
+			carrier = "RAIL",
+			compartmentsList = {
+				{
+					loadConfigs = {
+						{
+							cargoEntries = {
+								{
+									capacity =8,
+									seats = { },
+									type = "PASSENGERS",
+								},
+							},
+							toHide = { },
+						},
+					},
+				},
+			},
+			loadSpeed = 0,
+			multipleUnitOnly = true,
+			reversible = false,
+		},
+	},
+	version = 1,
+}
+end

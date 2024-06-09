@@ -1,0 +1,1033 @@
+function data()
+return {
+	boundingInfo = {
+		bbMax = { 15.449999809265, 1.479376912117, 2.1071918010712, },
+		bbMin = { -15.449999809265, -1.5169036388397, -0.019390434026718, },
+	},
+	collider = {
+		params = {
+			halfExtents = { 12.151712417603, 1.498140335083, 1.0632910728455, },
+		},
+		transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+		type = "BOX",
+	},
+	lods = {
+		{
+			node = {
+				children = {
+					{
+						children = {
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_fronten_lod0.msh",
+								name = "jay_mesh_himrrs_fronten",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_frontStuff_lod0.msh",
+								name = "jay_mesh_himrrs_frontStuff",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_kupplungMaikC_lod0.msh",
+								name = "jay_mesh_himrrs_kupplungMaikC",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_puffer_lod0.msh",
+								name = "jay_mesh_himrrs_puffer",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								animations = {
+									close_doors_left = {
+										forward = false,
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_door01.ani",
+										},
+										type = "FILE_REF",
+									},
+									close_doors_right = {
+										forward = false,
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_door01.ani",
+										},
+										type = "FILE_REF",
+									},
+									open_doors_left = {
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_door01.ani",
+										},
+										type = "FILE_REF",
+									},
+									open_doors_right = {
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_door01.ani",
+										},
+										type = "FILE_REF",
+									},
+								},
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_door01_lod0.msh",
+								name = "jay_mesh_himrrs_door01",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_mitte_lod0.msh",
+								name = "jay_mesh_himrrs_mitte",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_untersatz_lod0.msh",
+								name = "jay_mesh_himrrs_untersatz",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_schienenUntenrum_lod0.msh",
+								name = "jay_mesh_himrrs_schienenUntenrum",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_radHalterung_lod0.msh",
+								name = "jay_mesh_himrrs_radHalterung",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								animations = {
+									close_doors_left = {
+										forward = false,
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_rad02.ani",
+										},
+										type = "FILE_REF",
+									},
+									close_doors_right = {
+										forward = false,
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_rad02.ani",
+										},
+										type = "FILE_REF",
+									},
+									open_doors_left = {
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_rad02.ani",
+										},
+										type = "FILE_REF",
+									},
+									open_doors_right = {
+										forward = false,
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_rad02.ani",
+										},
+										type = "FILE_REF",
+									},
+								},
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_rad01_lod0.msh",
+								name = "jay_mesh_himrrs_rad01",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -7.1315307617188, -1.3817254304886, 1.5837767124176, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_stosser_lod0.msh",
+								name = "jay_mesh_himrrs_stosser",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_hebel_lod0.msh",
+								name = "jay_mesh_himrrs_hebel",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								animations = {
+									close_doors_right = {
+										forward = false,
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_rad01.ani",
+										},
+										type = "FILE_REF",
+									},
+									open_doors_left = {
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_rad01.ani",
+										},
+										type = "FILE_REF",
+									},
+									open_doors_right = {
+										forward = false,
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_rad01.ani",
+										},
+										type = "FILE_REF",
+									},
+								},
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_rad02_lod0.msh",
+								name = "jay_mesh_himrrs_rad02",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -7.1315307617188, 1.3817254304886, 1.5837767124176, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_door02_lod0.msh",
+								name = "jay_mesh_himrrs_door02",
+								transf = { -1, 3.8941436741879e-07, 0, 0, -3.8941436741879e-07, -1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_radStarr_lod0.msh",
+								name = "jay_mesh_himrrs_radStarr",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Gestell.001.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_w1_lod0.msh",
+								name = "jay_mesh_himrrs_w1",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -4.9569420814514, 0.0036380232777447, 0.48882120847702, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Gestell.001.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_w2_lod0.msh",
+								name = "jay_mesh_himrrs_w2",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4.9684805870056, 0.0036443248391151, 0.48882138729095, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Gestell.001.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_laufwerk_bandion_lod0.msh",
+								name = "jay_mesh_himrrs_laufwerk_bandion",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_kuppler_lod0.msh",
+								name = "jay_mesh_himrrs_kuppler",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/modwerkstatt_basis/zugschluss.mtl", },
+								mesh = "vehicle/waggon/modwerkstatt_basis/zugschluss/zugschluss_de_lod0.msh",
+								name = "zugschluss_de_front",
+								transf = { 0.99904799461365, 0, 0.043619375675917, 0, 0.0034223378170282, 0.99691730737686, -0.078384421765804, 0, -0.043484907597303, 0.078459069132805, 0.99596810340881, 0, -7.5199999809265, -0.62999999523163, 1.3700000047684, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/modwerkstatt_basis/zugschluss.mtl", },
+								mesh = "vehicle/waggon/modwerkstatt_basis/zugschluss/zugschluss_de_lod0.msh",
+								name = "zugschluss_de_front",
+								transf = { 0.99926269054413, 0, 0.038387767970562, 0, -0.0052098189480603, 0.99074786901474, 0.13561554253101, 0, -0.038032591342926, -0.13571552932262, 0.99001723527908, 0, -7.5199999809265, 0.62999999523163, 1.3700000047684, 1, },
+							},
+						},
+						name = "Wagen 1",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -7.3400001525879, 0, 0, 1, },
+					},
+					{
+						children = {
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_fronten_lod0.msh",
+								name = "jay_mesh_himrrs_fronten",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_frontStuff_lod0.msh",
+								name = "jay_mesh_himrrs_frontStuff",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_kupplungMaikC_lod0.msh",
+								name = "jay_mesh_himrrs_kupplungMaikC",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_puffer_lod0.msh",
+								name = "jay_mesh_himrrs_puffer",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								animations = {
+									close_doors_left = {
+										forward = false,
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_door01.ani",
+										},
+										type = "FILE_REF",
+									},
+									close_doors_right = {
+										forward = false,
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_door01.ani",
+										},
+										type = "FILE_REF",
+									},
+									open_doors_left = {
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_door01.ani",
+										},
+										type = "FILE_REF",
+									},
+									open_doors_right = {
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_door01.ani",
+										},
+										type = "FILE_REF",
+									},
+								},
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_door01_lod0.msh",
+								name = "jay_mesh_himrrs_door01",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_mitte_lod0.msh",
+								name = "jay_mesh_himrrs_mitte",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_untersatz_lod0.msh",
+								name = "jay_mesh_himrrs_untersatz",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_schienenUntenrum_lod0.msh",
+								name = "jay_mesh_himrrs_schienenUntenrum",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_radHalterung_lod0.msh",
+								name = "jay_mesh_himrrs_radHalterung",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								animations = {
+									close_doors_left = {
+										forward = false,
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_rad01.ani",
+										},
+										type = "FILE_REF",
+									},
+									close_doors_right = {
+										forward = false,
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_rad01.ani",
+										},
+										type = "FILE_REF",
+									},
+									open_doors_left = {
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_rad01.ani",
+										},
+										type = "FILE_REF",
+									},
+									open_doors_right = {
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_rad01.ani",
+										},
+										type = "FILE_REF",
+									},
+								},
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_rad01_lod0.msh",
+								name = "jay_mesh_himrrs_rad01",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -7.1315307617188, -1.3817254304886, 1.5837767124176, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_stosser_lod0.msh",
+								name = "jay_mesh_himrrs_stosser",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_hebel_lod0.msh",
+								name = "jay_mesh_himrrs_hebel",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								animations = {
+									close_doors_left = {
+										forward = false,
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_rad02.ani",
+										},
+										type = "FILE_REF",
+									},
+									close_doors_right = {
+										forward = false,
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_rad02.ani",
+										},
+										type = "FILE_REF",
+									},
+									open_doors_left = {
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_rad02.ani",
+										},
+										type = "FILE_REF",
+									},
+									open_doors_right = {
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_rad02.ani",
+										},
+										type = "FILE_REF",
+									},
+								},
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_rad02_lod0.msh",
+								name = "jay_mesh_himrrs_rad02",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -7.1315307617188, 1.3817254304886, 1.5837767124176, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_door02_lod0.msh",
+								name = "jay_mesh_himrrs_door02",
+								transf = { -1, 3.8941436741879e-07, 0, 0, -3.8941436741879e-07, -1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_radStarr_lod0.msh",
+								name = "jay_mesh_himrrs_radStarr",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Gestell.001.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_w1_lod0.msh",
+								name = "jay_mesh_himrrs_w1",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -4.9569420814514, 0.0036380232777447, 0.48882120847702, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Gestell.001.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_w2_lod0.msh",
+								name = "jay_mesh_himrrs_w2",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4.9684805870056, 0.0036443248391151, 0.48882138729095, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Gestell.001.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_laufwerk_bandion_lod0.msh",
+								name = "jay_mesh_himrrs_laufwerk_bandion",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_kuppler_lod0.msh",
+								name = "jay_mesh_himrrs_kuppler",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+						},
+						name = "Wagen 2",
+						transf = { -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 7.3400001525879, 0, 0, 1, },
+					},
+				},
+				name = "RootNode",
+				transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 50.820510864258,
+		},
+		{
+			node = {
+				children = {
+					{
+						children = {
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_fronten_lod1.msh",
+								name = "jay_mesh_himrrs_fronten",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_frontStuff_lod1.msh",
+								name = "jay_mesh_himrrs_frontStuff",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_kupplungMaikC_lod1.msh",
+								name = "jay_mesh_himrrs_kupplungMaikC",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_puffer_lod1.msh",
+								name = "jay_mesh_himrrs_puffer",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								animations = {
+									close_doors_left = {
+										forward = false,
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_door01.ani",
+										},
+										type = "FILE_REF",
+									},
+									close_doors_right = {
+										forward = false,
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_door01.ani",
+										},
+										type = "FILE_REF",
+									},
+									open_doors_left = {
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_door01.ani",
+										},
+										type = "FILE_REF",
+									},
+									open_doors_right = {
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_door01.ani",
+										},
+										type = "FILE_REF",
+									},
+								},
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_door01_lod1.msh",
+								name = "jay_mesh_himrrs_door01",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_mitte_lod1.msh",
+								name = "jay_mesh_himrrs_mitte",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_untersatz_lod1.msh",
+								name = "jay_mesh_himrrs_untersatz",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_rad01_lod1.msh",
+								name = "jay_mesh_himrrs_rad01",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -7.1315307617188, -1.3817254304886, 1.5837767124176, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_stosser_lod1.msh",
+								name = "jay_mesh_himrrs_stosser",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_rad02_lod1.msh",
+								name = "jay_mesh_himrrs_rad02",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -7.1315307617188, 1.3817254304886, 1.5837767124176, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_door02_lod1.msh",
+								name = "jay_mesh_himrrs_door02",
+								transf = { -1, 3.8941436741879e-07, 0, 0, -3.8941436741879e-07, -1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Gestell.001.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_w1_lod1.msh",
+								name = "jay_mesh_himrrs_w1",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -4.9569420814514, 0.0036380232777447, 0.48882120847702, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Gestell.001.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_w2_lod1.msh",
+								name = "jay_mesh_himrrs_w2",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4.9684805870056, 0.0036443248391151, 0.48882138729095, 1, },
+							},
+						},
+						name = "Wagen 1",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -7.3400001525879, 0, 0, 1, },
+					},
+					{
+						children = {
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_fronten_lod1.msh",
+								name = "jay_mesh_himrrs_fronten",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_frontStuff_lod1.msh",
+								name = "jay_mesh_himrrs_frontStuff",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_kupplungMaikC_lod1.msh",
+								name = "jay_mesh_himrrs_kupplungMaikC",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_puffer_lod1.msh",
+								name = "jay_mesh_himrrs_puffer",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								animations = {
+									close_doors_left = {
+										forward = false,
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_door01.ani",
+										},
+										type = "FILE_REF",
+									},
+									close_doors_right = {
+										forward = false,
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_door01.ani",
+										},
+										type = "FILE_REF",
+									},
+									open_doors_left = {
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_door01.ani",
+										},
+										type = "FILE_REF",
+									},
+									open_doors_right = {
+										params = {
+											id = "vehicle/waggon/himrrs/Scene/jay_mesh_himrrs_door01.ani",
+										},
+										type = "FILE_REF",
+									},
+								},
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_door01_lod1.msh",
+								name = "jay_mesh_himrrs_door01",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_mitte_lod1.msh",
+								name = "jay_mesh_himrrs_mitte",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_untersatz_lod1.msh",
+								name = "jay_mesh_himrrs_untersatz",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_rad01_lod1.msh",
+								name = "jay_mesh_himrrs_rad01",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -7.1315307617188, -1.3817254304886, 1.5837767124176, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_stosser_lod1.msh",
+								name = "jay_mesh_himrrs_stosser",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_rad02_lod1.msh",
+								name = "jay_mesh_himrrs_rad02",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -7.1315307617188, 1.3817254304886, 1.5837767124176, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_door02_lod1.msh",
+								name = "jay_mesh_himrrs_door02",
+								transf = { -1, 3.8941436741879e-07, 0, 0, -3.8941436741879e-07, -1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Gestell.001.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_w1_lod1.msh",
+								name = "jay_mesh_himrrs_w1",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -4.9569420814514, 0.0036380232777447, 0.48882120847702, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Gestell.001.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_w2_lod1.msh",
+								name = "jay_mesh_himrrs_w2",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4.9684805870056, 0.0036443248391151, 0.48882138729095, 1, },
+							},
+						},
+						name = "Wagen 2",
+						transf = { -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 7.3400001525879, 0, 0, 1, },
+					},
+				},
+				name = "RootNode",
+				transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+			},
+			static = false,
+			visibleFrom = 50.820510864258,
+			visibleTo = 469.46154785156,
+		},
+		{
+			node = {
+				children = {
+					{
+						children = {
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_fronten_lod2.msh",
+								name = "jay_mesh_himrrs_fronten",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_untersatz_lod2.msh",
+								name = "jay_mesh_himrrs_untersatz",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_hebel_lod2.msh",
+								name = "jay_mesh_himrrs_hebel",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Gestell.001.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_w1_lod2.msh",
+								name = "jay_mesh_himrrs_w1",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -4.9569420814514, 0.0036380232777447, 0.48882120847702, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Gestell.001.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_w2_lod2.msh",
+								name = "jay_mesh_himrrs_w2",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4.9684805870056, 0.0036443248391151, 0.48882138729095, 1, },
+							},
+						},
+						name = "Wagen 1",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -7.3400001525879, 0, 0, 1, },
+					},
+					{
+						children = {
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_fronten_lod2.msh",
+								name = "jay_mesh_himrrs_fronten",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_untersatz_lod2.msh",
+								name = "jay_mesh_himrrs_untersatz",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Himrrs_twaBlank.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_hebel_lod2.msh",
+								name = "jay_mesh_himrrs_hebel",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Gestell.001.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_w1_lod2.msh",
+								name = "jay_mesh_himrrs_w1",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -4.9569420814514, 0.0036380232777447, 0.48882120847702, 1, },
+							},
+							{
+								materials = { "vehicle/waggon/himrrs/Gestell.001.mtl", },
+								mesh = "vehicle/waggon/himrrs/jay_mesh_himrrs_w2_lod2.msh",
+								name = "jay_mesh_himrrs_w2",
+								transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4.9684805870056, 0.0036443248391151, 0.48882138729095, 1, },
+							},
+						},
+						name = "Wagen 2",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 7.3400001525879, 0, 0, 1, },
+					},
+				},
+				name = "RootNode",
+				transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+			},
+			static = false,
+			visibleFrom = 469.46154785156,
+			visibleTo = 1708.3846435547,
+		},
+	},
+	metadata = {
+		availability = {
+			yearFrom = 1998,
+			yearTo = -1,
+		},
+		cargoSlotProvider = {
+			slots = {
+				{
+					group = 1,
+					models = { },
+					randomId = 0,
+					transf = { 1, 0, 0, 0, -0, 1, 0, 0, 0, -0, 1, 0, 0, 0, 0, 1, },
+				},
+				{
+					group = 23,
+					models = { },
+					randomId = 0,
+					transf = { 1, 0, 0, 0, -0, 1, 0, 0, 0, -0, 1, 0, 0, 0, 0, 1, },
+				},
+			},
+		},
+		cost = {
+			price = -1,
+			priceScale = 1,
+		},
+		description = {
+			name = _("Himrrs (Transwaggon)"),
+		},
+		emission = {
+			idleEmission = -1,
+			powerEmission = -1,
+			speedEmission = -1,
+		},
+		maintenance = {
+			lifespan = 22000,
+			runningCostScale = 1,
+			runningCosts = -1,
+		},
+		railVehicle = {
+			blinkInterval = 500,
+			configs = {
+				{
+					axles = { "vehicle/waggon/himrrs/jay_mesh_himrrs_w1_lod0.msh", "vehicle/waggon/himrrs/jay_mesh_himrrs_w2_lod0.msh", },
+					backBackwardParts = { },
+					backForwardParts = { 21, 22, },
+					blinkLightsLeft0 = { },
+					blinkLightsLeft1 = { },
+					blinkLightsRight0 = { },
+					blinkLightsRight1 = { },
+					blinkingLights0 = { },
+					blinkingLights1 = { },
+					brakeLights = { },
+					fakeBogies = { },
+					frontBackwardParts = { },
+					frontForwardParts = { },
+					innerBackwardParts = { },
+					innerForwardParts = { },
+				},
+				{
+					axles = { "vehicle/waggon/himrrs/jay_mesh_himrrs_w1_lod1.msh", "vehicle/waggon/himrrs/jay_mesh_himrrs_w2_lod1.msh", },
+					backBackwardParts = { },
+					backForwardParts = { },
+					blinkLightsLeft0 = { },
+					blinkLightsLeft1 = { },
+					blinkLightsRight0 = { },
+					blinkLightsRight1 = { },
+					blinkingLights0 = { },
+					blinkingLights1 = { },
+					brakeLights = { },
+					fakeBogies = { },
+					frontBackwardParts = { },
+					frontForwardParts = { },
+					innerBackwardParts = { },
+					innerForwardParts = { },
+				},
+				{
+					axles = { "vehicle/waggon/himrrs/jay_mesh_himrrs_w1_lod2.msh", "vehicle/waggon/himrrs/jay_mesh_himrrs_w2_lod2.msh", },
+					backBackwardParts = { },
+					backForwardParts = { },
+					blinkLightsLeft0 = { },
+					blinkLightsLeft1 = { },
+					blinkLightsRight0 = { },
+					blinkLightsRight1 = { },
+					blinkingLights0 = { },
+					blinkingLights1 = { },
+					brakeLights = { },
+					fakeBogies = { },
+					frontBackwardParts = { },
+					frontForwardParts = { },
+					innerBackwardParts = { },
+					innerForwardParts = { },
+				},
+			},
+			engines = { },
+			soundSet = {
+				horn = "",
+				name = "mw_schiebewand",
+			},
+			topSpeed = 33.299999237061,
+			weight = 34.299999237061,
+		},
+		transportVehicle = {
+			carrier = "RAIL",
+			compartmentsList = {
+				{
+					loadConfigs = {
+						{
+							cargoEntries = {
+								{
+									capacity = 72,
+									cargoBay = {
+										bbMax = { 6.7, 1.45, 1.7, },
+										bbMin = { -6.7, -1.45, 1.05, },
+										cargoFormat = "SMALL",
+										childId = 1,
+										gridSize = { 4, 1, },
+										sizePolicy = "STRETCH",
+										type = "DISCRETE",
+									},
+									seats = { },
+									type = "GOODS",
+								},
+							},
+							toHide = { },
+						},
+						{
+							cargoEntries = {
+								{
+									capacity = 72,
+									cargoBay = {
+										bbMax = { 6.7, 1.45, 1.7, },
+										bbMin = { -6.7, -1.45, 1.05, },
+										cargoFormat = "SMALL",
+										childId = 1,
+										gridSize = { 4, 1, },
+										sizePolicy = "STRETCH",
+										type = "DISCRETE",
+									},
+									seats = { },
+									type = "PLASTIC",
+								},
+							},
+							toHide = { },
+						},
+						{
+							cargoEntries = {
+								{
+									capacity = 72,
+									cargoBay = {
+										bbMax = { 6.7, 1.45, 1.7, },
+										bbMin = { -6.7, -1.45, 1.05, },
+										cargoFormat = "SMALL",
+										childId = 1,
+										gridSize = { 4, 1, },
+										sizePolicy = "STRETCH",
+										type = "DISCRETE",
+									},
+									seats = { },
+									type = "MACHINES",
+								},
+							},
+							toHide = { },
+						},
+						{
+							cargoEntries = {
+								{
+									capacity = 72,
+									cargoBay = {
+										bbMax = { 6.7, 1.45, 1.7, },
+										bbMin = { -6.7, -1.45, 1.05, },
+										cargoFormat = "SMALL",
+										childId = 1,
+										gridSize = { 4, 1, },
+										sizePolicy = "STRETCH",
+										type = "DISCRETE",
+									},
+									seats = { },
+									type = "TOOLS",
+								},
+							},
+							toHide = { },
+						},
+					},
+				},
+				{
+					loadConfigs = {
+						{
+							cargoEntries = {
+								{
+									capacity = 72,
+									cargoBay = {
+										bbMax = { 6.7, 1.45, 1.7, },
+										bbMin = { -6.7, -1.45, 1.05, },
+										cargoFormat = "SMALL",
+										childId = 23,
+										gridSize = { 4, 1, },
+										sizePolicy = "STRETCH",
+										type = "DISCRETE",
+									},
+									seats = { },
+									type = "GOODS",
+								},
+							},
+							toHide = { },
+						},
+						{
+							cargoEntries = {
+								{
+									capacity = 72,
+									cargoBay = {
+										bbMax = { 6.7, 1.45, 1.7, },
+										bbMin = { -6.7, -1.45, 1.05, },
+										cargoFormat = "SMALL",
+										childId = 23,
+										gridSize = { 4, 1, },
+										sizePolicy = "STRETCH",
+										type = "DISCRETE",
+									},
+									seats = { },
+									type = "PLASTIC",
+								},
+							},
+							toHide = { },
+						},
+						{
+							cargoEntries = {
+								{
+									capacity = 72,	
+									cargoBay = {
+										bbMax = { 6.7, 1.45, 1.7, },
+										bbMin = { -6.7, -1.45, 1.05, },
+										cargoFormat = "SMALL",
+										childId = 23,
+										gridSize = { 4, 1, },
+										sizePolicy = "STRETCH",
+										type = "DISCRETE",
+									},
+									seats = { },
+									type = "MACHINES",
+								},
+							},
+							toHide = { },
+						},
+						{
+							cargoEntries = {
+								{
+									capacity = 72,
+									cargoBay = {
+										bbMax = { 6.7, 1.45, 1.7, },
+										bbMin = { -6.7, -1.45, 1.05, },
+										cargoFormat = "SMALL",
+										childId = 23,
+										gridSize = { 4, 1, },
+										sizePolicy = "STRETCH",
+										type = "DISCRETE",
+									},
+									seats = { },
+									type = "TOOLS",
+								},
+							},
+							toHide = { },
+						},
+					},
+				},
+			},
+			groupFileName = "vehicle/waggon/himrrs/himrrs_menu.mdl",
+			loadSpeed = 2,
+			multipleUnitOnly = false,
+			reversible = false,
+		},
+	},
+	version = 1,
+}
+end
