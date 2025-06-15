@@ -1,154 +1,189 @@
+import customtkinter
 import os
+from customtkinter import filedialog
 import re
-import tkinter as tk
-from tkinter.filedialog import askdirectory
-from collections import defaultdict
+
+import shutil
+
+from PIL import Image
 
 
-def load_files(origin_path):
-    origin_path_waggon = os.path.join(origin_path, "res/models/model/vehicle/waggon/")
-    final_path = os.path.join(origin_path, "res/models/model/asset/")
-    con_path = os.path.join(origin_path, "res/construction/")
+def filter_asset_file(asset_file):
+    with open(asset_file, "r") as af:
+        asset_file_content = af.read()
 
-    roots = defaultdict(list)
-
-    ignore_names = ["menu", "beladen", "fake", "gedreht", "zusatz"]
-
-    # Create directories for assets and construction
-    os.makedirs(final_path, exist_ok=True)
-    os.makedirs(con_path, exist_ok=True)
-
-    # Function to check if a file name contains any word from ignore_names
-    def should_ignore(file_name, ignore_list):
-        return any(word in file_name for word in ignore_list)
-
-    # Iterate over all directories in waggon
-    for root, dirs, files in os.walk(origin_path_waggon):
-        for file in files:
-            if not should_ignore(file, ignore_names):
-                file_path = os.path.join(root, file)
-                with open(file_path, 'r', encoding="utf-8", errors="ignore") as current_file:
-                    content = current_file.read()
-                    processed_content = process_files(content)
-
-                # if metadata is empty, file is prob. not a waggon
-                if processed_content is None:
-                    continue
-
-                target_file_path = os.path.join(final_path, file)
-                with open(target_file_path, 'w', encoding="utf-8") as target_file:
-                    target_file.write(processed_content)
-                    roots[root].append(file)
-
-    # Create Con file
-    con_file_name = f"{origin_path.split('/')[-1].split('_')[-2]}_asset.con"
-    con_file_path = os.path.join(con_path, con_file_name)
-    with open(con_file_path, 'w', encoding="utf-8") as con_file:
-        con_file.write(create_con(origin_path_waggon, roots))
-
-
-def process_files(content):
+    # Throw out metadata
     pattern = re.compile(r'metadata\s*=\s*\{', re.DOTALL)
-    match = pattern.search(content)
-
-    if not match:
-        print("No matches found.")
-        return content
+    match = pattern.search(asset_file_content)
 
     start_index = match.end()
     stack = 1
     end_index = start_index
 
-    while stack > 0 and end_index < len(content):
-        if content[end_index] == '{':
+    # to properly remove parenthisisisisis from the mdl .. uagh
+    while stack > 0 and end_index < len(asset_file_content):
+        if asset_file_content[end_index] == '{':
             stack += 1
-        elif content[end_index] == '}':
+        elif asset_file_content[end_index] == '}':
             stack -= 1
         end_index += 1
 
-    metadata_content = content[start_index:end_index - 1].strip()
+    metadata_content = asset_file_content[start_index:end_index - 1].strip()
 
     if metadata_content:
-        processed_content = content.replace(metadata_content, "")
-        return processed_content
-    else:
-        print("No content found within metadata. Skipping to the next file.")
-        return None
+        asset_file_content = asset_file_content.replace(metadata_content, "")
+    if not match:
+        print("No metadata block found.")
+        return
+
+    with open(asset_file, "w") as af:
+        af.write(asset_file_content)
+
+    print("Threw out metadata for " + asset_file)
 
 
-def filter_zugschluss(content):
-    beginning = """
-        {
-            materials = { "vehicle/waggon/modwerkstatt_basis/zugschlussSNCF90s.mtl", },
-            mesh = "vehicle/waggon/modwerkstatt_basis/zugschluss/zugschlussSNCF90s_lod0.msh",
-            name = "zugschluss_sncf",
-            transf = { 0.99999928474426, -1.3430874332698e-06, -0, 0, 1.3430692433758e-06, 0.99998581409454, 0.005235958378762, 0, -7.0323533662986e-09, -0.0052359574474394, 0.99998563528061, 0, -6.8299999237061, 0.83999997377396, 1.210000038147, 1, },
-        },
-        {
-            materials = { "vehicle/waggon/modwerkstatt_basis/zugschlussSNCF90sLicht.mtl", },
-            mesh = "vehicle/waggon/modwerkstatt_basis/zugschluss/zugschlussSNCFLicht90s_lod0.msh",
-            name = "zugschluss_sncf_licht",
-            transf = { 0.99999928474426, -1.3430874332698e-06, -0, 0, 1.3430692433758e-06, 0.99998581409454, 0.005235958378762, 0, -7.0323533662986e-09, -0.0052359574474394, 0.99998563528061, 0, -6.8299999237061, -0.83999997377396, 1.210000038147, 1, },
-        },
-    """
+def copy_asset_files(folder):
+    asset_folder = os.path.join(folder, "res", "models", "model", "asset")
+    vehicle_folder = os.path.join(folder, "res", "models", "model", "vehicle")
+    ignore_names = ["menu", "beladen", "fake", "gedreht", "zusatz"]
 
-    return content.replace(beginning, "")
+    file_paths = []
+    asset_files = []
 
+    print("Generating assets...")
+    os.makedirs(asset_folder, exist_ok=True)
+    for root, dirs, files in os.walk(vehicle_folder):
+        for file in files:
+            # make sure to ignore files and folders with name "fake", "beladen" , .. etc.
+            if file.endswith(".mdl") and all(term not in root and term not in file for term in ignore_names):
+                file_paths.append(os.path.join(root, file))
+                shutil.copy(os.path.join(root, file), asset_folder)
+    for root, dirs, files in os.walk(asset_folder):
+        for file in files:
+            if file.endswith(".mdl"):
+                filter_asset_file(os.path.join(root, file))
+                asset_files.append(file)
 
-def create_con(path, roots):
-    with open("conTemplate.con", 'r') as con_template:
-        content = con_template.read()
-
-    icon_names = []
-    model_names = []
-
-    for root_path, filenames in roots.items():
-        if isinstance(root_path, str) and isinstance(filenames, list):
-            for filename in filenames:
-                if isinstance(filename, str):
-                    # Create icon path
-                    relative_path = os.path.relpath(root_path, path)
-                    icon_path = os.path.join("ui/models_20/vehicle/waggon", relative_path,
-                                             filename.replace(".mdl", "") + "@2x.tga")
-                    # Replace backslashes with forward slashes
-                    icon_path = icon_path.replace("\\", "/")
-
-                    # Create model path
-                    model_path = os.path.join("asset", filename)
-                    model_path = model_path.replace("\\", "/")
-
-                    # Append paths to lists
-                    icon_names.append(f"\"{icon_path}\",\n\t\t\t\t\t\t")
-                    model_names.append(f"\"{model_path}\",\n\t\t\t\t\t\t")
-                else:
-                    print(f"Skipping non-string filename: {filename}")
-        else:
-            print(f"Skipping non-string root_path or non-list filenames: {root_path}, {filenames}")
-
-    if icon_names and model_names:
-        content = content.replace("#model_icons", "".join(icon_names))
-        content = content.replace("#model_values", "".join(model_names))
-
-    content = content.replace("#year_from_wagon,", "1970,")
-
-    return content
+    return asset_files, file_paths
 
 
-if __name__ == '__main__':
-    # Hide the main Tkinter window
-    root = tk.Tk()
-    root.withdraw()
+def create_con(folder, asset_files, mdl_paths):
+    con_folder = os.path.join(folder, "res", "construction")
+    con_name = f"{con_folder.split('/')[-1].split('_')[-2]}_asset.con"
 
-    # Choose mod directory
-    given_path = askdirectory(title="Select the directory containing the original mdl files")
-    if given_path.split("/")[-2] != "staging_area":
-        print("Select a valid path in staging area.")
-        print(given_path)
-    elif given_path:
-        try:
-            load_files(given_path)
-            print("Processing complete.")
-        except Exception as e:
-            print(f"An error occurred: {e}")
-    else:
-        print("No directory selected.")
+    # asset file paths for con (asset/x.mdl)
+    asset_file_path = []
+    icon_path = []
+
+    for asset_file_name in asset_files:
+        asset_file_path.append("asset/" + asset_file_name)
+
+    for mdl_path in mdl_paths:
+        parts = os.path.normpath(mdl_path).split(os.sep)
+        vehicle_index = parts.index("vehicle")
+        relative_parts = parts[vehicle_index + 1:]  # only need part after "vehicle"
+        relative_path = "ui/models_small/vehicle/" + "/".join(relative_parts)  # con requires forward slashes
+        icon_path.append(relative_path)
+
+    os.makedirs(con_folder, exist_ok=True)
+
+    icon_block = '\n\t"' + '",\n\t"'.join(icon_path) + '"\n'
+    asset_block = '\n\t"' + '",\n\t"'.join(asset_file_path) + '"\n'
+
+    with open("conTemplate.con", "r") as ct:
+        con_template = ct.read()
+
+    # replace the content of the template
+    con_file = con_template
+    con_file = con_file.replace("#model_icons", icon_block)
+    con_file = con_file.replace("#model_values", asset_block)
+    con_file = con_file.replace("#year_from_waggon", "1950")
+    con_file = con_file.replace("#categories", '"waggon"')
+
+    with open(os.path.join(con_folder, con_name), 'w') as con:
+        con.write(con_file)
+
+    return con_name
+
+
+def create_menu_icon(folder, con_name):
+    asset_ui_path = os.path.join(folder, "res", "textures", "ui", "construction")
+    os.makedirs(asset_ui_path, exist_ok=True)
+
+    con_name = con_name.replace(".con", "")
+
+    mod_name = os.path.basename(folder)
+    shutil.copy(os.path.join(folder, "image_00.tga"), os.path.join(asset_ui_path, f"{con_name}.tga"))
+
+
+def generate_assets(folder):
+    asset_files, mdl_paths = copy_asset_files(folder)
+    con_name = create_con(folder, asset_files, mdl_paths)
+    create_menu_icon(folder, con_name)
+
+
+def validate_vehicle_type(folder):
+    required_file = "mod.lua"
+    vehicle_paths = {
+        "Waggon": os.path.join("res", "models", "model", "vehicle", "waggon"),
+        "Train": os.path.join("res", "models", "model", "vehicle", "train"),
+        "Truck": os.path.join("res", "models", "model", "vehicle", "truck"),
+        "Bus": os.path.join("res", "models", "model", "vehicle", "bus"),
+        "Car": os.path.join("res", "models", "model", "vehicle", "car"),
+        "Ship": os.path.join("res", "models", "model", "vehicle", "ship"),
+    }
+
+    if not os.path.isfile(os.path.join(folder, required_file)):
+        print("No mod.lua found. Correct folder?")
+        return False
+
+    for vehicle_type, vehicle_path in vehicle_paths.items():
+        full_path = os.path.join(folder, vehicle_path)
+        if os.path.isdir(full_path):
+            print("Vehicle type:", vehicle_type)
+            return True
+
+    print("Not a supported mod type.")
+    return False
+
+
+def show_mod_preview(folder):
+    try:
+        mod_preview = Image.open(os.path.join(folder, "image_00.tga"))
+    except FileNotFoundError:
+        print("Preview image not found!")
+        return
+
+    ctk_img = customtkinter.CTkImage(mod_preview)
+    label = customtkinter.CTkLabel(app, image=ctk_img, text="")
+    label.grid(row=2, column=0, padx=20, pady=20)
+    label.image = ctk_img
+
+    # display_more_options()
+    button = customtkinter.CTkButton(app, text="Create assets!", command=lambda: generate_assets(folder))
+    button.grid(row=0, column=0, padx=20, pady=10)
+
+    button_reselect = customtkinter.CTkButton(app, text="Reselect", command=button_folder_select)
+    button_reselect.grid(row=1, column=0, padx=20, pady=10)
+
+
+def button_folder_select():
+    folder = filedialog.askdirectory()
+    if not folder:
+        print("No folder selected!")
+    print("Selected folder:", folder)
+    if validate_vehicle_type(folder):
+        show_mod_preview(folder)
+
+
+def create_ui(app):
+    app.title("TPF2 Asset Generator")
+    app.geometry("720x480")
+    button = customtkinter.CTkButton(app, text="Choose folder", command=button_folder_select)
+    button.grid(row=0, column=0, padx=20, pady=20)
+
+
+# MAIN
+app = customtkinter.CTk()
+create_ui(app)
+app.mainloop()

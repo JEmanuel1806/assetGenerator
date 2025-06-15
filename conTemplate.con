@@ -23,7 +23,7 @@ return {
 			yearTo = 0,
 	},
 	buildMode = "MULTI",
-	categories = { "tracks", "jays_mods" },
+	categories = { #categories },
 	order = -2046867593,
 	skipCollision = true,
 	autoRemovable = false,
