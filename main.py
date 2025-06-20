@@ -7,6 +7,8 @@ import shutil
 
 from PIL import Image
 
+global current_vehicle_type  # global for now
+
 
 def filter_asset_file(asset_file):
     with open(asset_file, "r") as af:
@@ -83,6 +85,7 @@ def create_con(folder, asset_files, mdl_paths):
         vehicle_index = parts.index("vehicle")
         relative_parts = parts[vehicle_index + 1:]  # only need part after "vehicle"
         relative_path = "ui/models_small/vehicle/" + "/".join(relative_parts)  # con requires forward slashes
+        relative_path = relative_path.replace(".mdl", "@2x.tga")
         icon_path.append(relative_path)
 
     os.makedirs(con_folder, exist_ok=True)
@@ -90,15 +93,40 @@ def create_con(folder, asset_files, mdl_paths):
     icon_block = '\n\t"' + '",\n\t"'.join(icon_path) + '"\n'
     asset_block = '\n\t"' + '",\n\t"'.join(asset_file_path) + '"\n'
 
-    with open("conTemplate.con", "r") as ct:
+    with open("template/conTemplate.lua", "r") as ct:
         con_template = ct.read()
+
+    train_wagon_block = """\
+                    {
+                    key = "position",
+                    name = _("height"),
+                    uiType = "BUTTON",
+                    values = { _("ground"), _("rail") },
+                    tooltip = _("height_tooltip"),
+                    defaultIndex = 1,
+                    },
+                    positionx.params,
+                    assetmodel.params,
+                    """
 
     # replace the content of the template
     con_file = con_template
     con_file = con_file.replace("#model_icons", icon_block)
     con_file = con_file.replace("#model_values", asset_block)
-    con_file = con_file.replace("#year_from_waggon", "1950")
-    con_file = con_file.replace("#categories", '"waggon"')
+    con_file = con_file.replace("#year_from_wagon", "1950")
+
+    if current_vehicle_type in ["Waggon", "Train"]:
+        con_file = con_file.replace("#height_params", train_wagon_block)
+        con_file = con_file.replace("#get_params", "local trax = positionx.getValue(params)")
+        con_file = con_file.replace("#rail_height", "if params.position == 1 then height = 1.05 end")
+        con_file = con_file.replace("#asset_type", '"ASSET_TRACK"')
+        con_file = con_file.replace("#categories", f'"{current_vehicle_type}"')
+    else:
+        con_file = con_file.replace("#height_params", "assetmodel.params,")
+        con_file = con_file.replace("#get_params", "local trax = 0")
+        con_file = con_file.replace("#rail_height", "")
+        con_file = con_file.replace("#asset_type", '"ASSET_DEFAULT"')
+        con_file = con_file.replace("#categories", f'"{current_vehicle_type}"')
 
     with open(os.path.join(con_folder, con_name), 'w') as con:
         con.write(con_file)
@@ -116,10 +144,18 @@ def create_menu_icon(folder, con_name):
     shutil.copy(os.path.join(folder, "image_00.tga"), os.path.join(asset_ui_path, f"{con_name}.tga"))
 
 
+def add_script(folder):
+    script_path = os.path.join(folder, "res", "scripts")
+    os.makedirs(script_path, exist_ok=True)
+
+    shutil.copy("template/parambuilder_v1_1.lua", script_path)
+
+
 def generate_assets(folder):
     asset_files, mdl_paths = copy_asset_files(folder)
     con_name = create_con(folder, asset_files, mdl_paths)
     create_menu_icon(folder, con_name)
+    add_script(folder)
 
 
 def validate_vehicle_type(folder):
@@ -131,6 +167,7 @@ def validate_vehicle_type(folder):
         "Bus": os.path.join("res", "models", "model", "vehicle", "bus"),
         "Car": os.path.join("res", "models", "model", "vehicle", "car"),
         "Ship": os.path.join("res", "models", "model", "vehicle", "ship"),
+        "Plane": os.path.join("res", "models", "model", "vehicle", "plane"),
     }
 
     if not os.path.isfile(os.path.join(folder, required_file)):
@@ -141,6 +178,8 @@ def validate_vehicle_type(folder):
         full_path = os.path.join(folder, vehicle_path)
         if os.path.isdir(full_path):
             print("Vehicle type:", vehicle_type)
+            global current_vehicle_type
+            current_vehicle_type = vehicle_type
             return True
 
     print("Not a supported mod type.")
@@ -150,21 +189,40 @@ def validate_vehicle_type(folder):
 def show_mod_preview(folder):
     try:
         mod_preview = Image.open(os.path.join(folder, "image_00.tga"))
+        preview_size = mod_preview.size * 3
     except FileNotFoundError:
         print("Preview image not found!")
         return
 
-    ctk_img = customtkinter.CTkImage(mod_preview)
+    ctk_img = customtkinter.CTkImage(mod_preview, size=preview_size)
     label = customtkinter.CTkLabel(app, image=ctk_img, text="")
-    label.grid(row=2, column=0, padx=20, pady=20)
+    label.grid(row=2, column=0, padx=300, pady=20)
     label.image = ctk_img
+
+    # show all mdl
+
+    scroll_frame = customtkinter.CTkScrollableFrame(app, width=300, height=200)
+    scroll_frame.grid(row=0, column=0, padx=20, pady=0, sticky="nsew")
+
+    # Konfiguration für resizing
+    app.grid_rowconfigure(0, weight=1)
+    app.grid_columnconfigure(0, weight=1)
+
+    mdl_files = [folder]
+    checkbox_vars = {}
+
+    for i, filename in enumerate(mdl_files):
+        var = customtkinter.BooleanVar(value=False)
+        cb = customtkinter.CTkCheckBox(scroll_frame, text=filename, variable=var)
+        cb.grid(row=i, column=0, sticky="w", padx=5, pady=2)
+        checkbox_vars[filename] = var
 
     # display_more_options()
     button = customtkinter.CTkButton(app, text="Create assets!", command=lambda: generate_assets(folder))
-    button.grid(row=0, column=0, padx=20, pady=10)
+    button.grid(row=0, column=0, padx=300, pady=10)
 
     button_reselect = customtkinter.CTkButton(app, text="Reselect", command=button_folder_select)
-    button_reselect.grid(row=1, column=0, padx=20, pady=10)
+    button_reselect.grid(row=1, column=0, padx=300, pady=10)
 
 
 def button_folder_select():
@@ -179,8 +237,9 @@ def button_folder_select():
 def create_ui(app):
     app.title("TPF2 Asset Generator")
     app.geometry("720x480")
-    button = customtkinter.CTkButton(app, text="Choose folder", command=button_folder_select)
-    button.grid(row=0, column=0, padx=20, pady=20)
+    button = customtkinter.CTkButton(app, text="Choose folder", command=button_folder_select,
+                                     font=("Segoe UI", 14, "bold"))
+    button.grid(row=0, column=0, padx=300, pady=20)
 
 
 # MAIN
