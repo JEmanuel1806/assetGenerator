@@ -14,6 +14,8 @@ class AssetGeneratorApp:
         self.app.geometry("720x480")
         self.folder = None
 
+        self.app.iconbitmap(os.path.join("res", "images", "asset_generator.ico"))  # Icon setzen
+
         self.init_button()
         self.app.mainloop()
 
@@ -26,40 +28,56 @@ class AssetGeneratorApp:
             mod_preview = Image.open(os.path.join(folder, "image_00.tga"))
             width, height = mod_preview.size
             preview_size = (width, height)
-
         except FileNotFoundError:
             print("Preview image not found!")
             return
 
+        for widget in self.app.winfo_children():
+            widget.destroy()
+
+        # scroll frame containing all found models
+        scroll_frame = customtkinter.CTkScrollableFrame(self.app, width=400, height=300)
+        scroll_frame.grid(row=1, column=0, padx=20, pady=20, sticky="n")
+
         ctk_img = customtkinter.CTkImage(mod_preview, size=preview_size)
-        label = customtkinter.CTkLabel(self.app, image=ctk_img, text="")
-        label.grid(row=2, column=0, padx=300, pady=20)
-        label.image = ctk_img
-
-        # show all mdl
-        scroll_frame = customtkinter.CTkScrollableFrame(self.app, width=300, height=200)
-        scroll_frame.grid(row=0, column=0, padx=20, pady=0, sticky="nsew")
-
-        # config for resizing
-        self.app.grid_rowconfigure(0, weight=1)
-        self.app.grid_columnconfigure(0, weight=1)
+        preview_label = customtkinter.CTkLabel(self.app, image=ctk_img, text="")
+        preview_label.grid(row=1, column=1, padx=20, pady=20, sticky="ns")
+        preview_label.image = ctk_img
 
         mdl_files = asset_creator.get_files_from_directory(folder)[1]
         checkbox_value_pairs = {}
 
-        for index, filename in enumerate(mdl_files):
-            checkbox_boolean = customtkinter.BooleanVar(value=False)
-            cb = customtkinter.CTkCheckBox(scroll_frame, text=filename, variable=checkbox_boolean)
-            cb.grid(row=index, column=0, sticky="w", padx=5, pady=2)
-            checkbox_value_pairs[filename] = checkbox_boolean
+        for i, filename in enumerate(mdl_files):
+            checkbox_var = customtkinter.BooleanVar(value=False)
+            short_name = os.path.basename(filename)
+            cb = customtkinter.CTkCheckBox(scroll_frame, text=short_name, variable=checkbox_var)
+            cb.grid(row=i, column=0, sticky="w", padx=5, pady=2)
+            checkbox_value_pairs[filename] = checkbox_var
 
-        # display_more_options()
-        button = customtkinter.CTkButton(self.app, text="Create assets!",
-                                         command=lambda: asset_creator.generate_assets(folder, checkbox_value_pairs))
-        button.grid(row=0, column=0, padx=300, pady=10)
+        scroll_label_amount = customtkinter.CTkLabel(self.app,
+                                                     text=f"Found {len(mdl_files)} models of type "
+                                                          f"{asset_creator.current_vehicle_type}.",
+                                                     font=("Segoe UI", 14, "bold"))
+        scroll_label_amount.grid(row=0, column=0, padx=20, pady=(20, 0), sticky="w")
 
-        button_reselect = customtkinter.CTkButton(self.app, text="Reselect", command=self.button_folder_select)
-        button_reselect.grid(row=1, column=0, padx=300, pady=10)
+        create_btn = customtkinter.CTkButton(
+            self.app,
+            text="Create assets!",
+            font=("Calibri", 14, "bold"),
+            command=lambda: asset_creator.generate_assets(folder, checkbox_value_pairs)
+        )
+        create_btn.grid(row=2, column=1, padx=20, pady=10, sticky="e")
+
+        reselect_btn = customtkinter.CTkButton(
+            self.app,
+            text="Reselect",
+            font=("Calibri", 14, "bold"),
+            command=self.button_folder_select
+        )
+        reselect_btn.grid(row=2, column=0, padx=20, pady=10, sticky="w")
+
+        self.app.grid_columnconfigure(0, weight=1)
+        self.app.grid_columnconfigure(1, weight=1)
 
     # responsible for selection obv
     def button_folder_select(self):
