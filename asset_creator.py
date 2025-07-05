@@ -50,7 +50,7 @@ def filter_asset_file(asset_file):
 
 def get_files_from_directory(folder):
     vehicle_folder = os.path.join(folder, "res", "models", "model", "vehicle")
-    ignore_terms = ["menu", "menue", "beladen", "fake", "gedreht", "zusatz"]
+    ignore_terms = ["menu", "menue", "beladen", "fake", "gedreht", "zusatz", "group", "deko", "tafel"]
 
     full_path_vehicle_files = []
     vehicle_files = []
@@ -58,7 +58,8 @@ def get_files_from_directory(folder):
     for root, dirs, files in os.walk(vehicle_folder):
         for file in files:
 
-            if file.endswith(".mdl") and all(term not in root and term not in file for term in ignore_terms):
+            if file.endswith(".mdl") and all(
+                    term.lower() not in root and term.lower() not in file for term in ignore_terms):
                 full_path_vehicle_files.append(os.path.join(root, file))
                 vehicle_files.append(file)
 
@@ -66,6 +67,10 @@ def get_files_from_directory(folder):
     print(f"Found {number_of_files} models.")
 
     return vehicle_files, full_path_vehicle_files
+
+
+def get_ui_path(folder):
+    ui_path = os.path.join(folder, "textures", "ui", "models_20", "vehicle")
 
 
 def copy_asset_files(folder, selected_files):
@@ -227,14 +232,6 @@ def validate_vehicle_type(folder):
     print("Not a supported mod type.")
     return False
 
-
 # handles the preview of the ui pic
 # use the default image_00.tga from the directory
 # let user select it manually if desired
-
-
-
-
-
-
-
