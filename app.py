@@ -37,12 +37,15 @@ class AssetGeneratorApp:
 
         self.app.iconbitmap(os.path.join("res", "images", "asset_generator.ico"))  # Icon setzen
 
+        self.status_label = customtkinter.CTkLabel(self.app, text="Bereit", font=("Segoe UI", 12))
+        self.status_label.grid(row=3, column=0, padx=20, pady=10)
+
         self.init_button()
         self.app.mainloop()
 
     def init_button(self):
         button = customtkinter.CTkButton(self.app, text="Choose folder", command=self.button_folder_select,
-                                         fg_color="#4D54AD", )
+                                         fg_color="#4D54AD", font=("Calibri", 14, "bold"), )
         button.grid(row=0, column=0, padx=300, pady=20)
 
     def show_mod_preview(self, folder):
@@ -85,7 +88,7 @@ class AssetGeneratorApp:
             cb = customtkinter.CTkCheckBox(scroll_frame, text=short_name, variable=checkbox_var, fg_color="#4D54AD")
             img_label = customtkinter.CTkLabel(scroll_frame, image=get_current_ui_image(folder, filename), text="")
             cb.grid(row=i, column=0, sticky="w", padx=5, pady=2)
-            img_label.grid(row=i, column=0, sticky="w", padx=250, pady=2)
+            img_label.grid(row=i, column=0, sticky="w", padx=275, pady=2)
             checkbox_value_pairs[filename] = checkbox_var
 
         scroll_label_amount = customtkinter.CTkLabel(self.app,

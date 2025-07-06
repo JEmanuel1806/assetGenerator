@@ -3,6 +3,8 @@ import re
 
 import shutil
 
+import app
+
 # bunch of utility functions for cleaning, removing, copying and reordering the data
 # actual logic of creating the assets
 
@@ -38,8 +40,59 @@ def filter_asset_file(asset_file):
         print("No metadata block found.")
         return
 
-    with open(asset_file, "w") as af:
-        af.write(asset_file_content)
+    # filter out ligths etc..
+    lines = asset_file_content.splitlines(keepends=True)
+    result_content = []
+    forbidden_terms = ["emissive", "zugschluss", "licht_oben", "panto_up", "zugschlussleuchte"]
+
+    in_block = False
+    nesting_level = 0
+    in_subblock = False
+    sub_nesting = 0
+    block_lines = []
+
+    for line in lines:
+        line_s = line.strip()
+
+        # Start of children block
+        if not in_block and line_s.startswith("children"):
+            in_block = True
+            nesting_level = line_s.count("{") - line_s.count("}")
+            result_content.append(line)
+            continue
+
+        if in_block:
+            nesting_level += line_s.count("{") - line_s.count("}")
+
+            # Inner block
+            if not in_subblock and "{" in line_s:
+                in_subblock = True
+                block_lines = []
+                sub_nesting = 0
+
+            if in_subblock:
+                sub_nesting += line_s.count("{")
+                sub_nesting -= line_s.count("}")
+                block_lines.append(line)
+
+                if sub_nesting == 0:
+                    in_subblock = False
+                    full_block = ''.join(block_lines).lower()
+                    if any(term in full_block for term in forbidden_terms):
+                        print(full_block)
+                    else:
+                        result_content.extend(block_lines)
+                    block_lines = []
+
+            if nesting_level == 0:
+                result_content.append(line)
+                in_block = False
+
+        else:
+            result_content.append(line)
+
+    with open(asset_file, "w", encoding="utf-8") as af:
+        af.write(''.join(result_content))
 
     print("Threw out metadata for " + asset_file)
 
@@ -50,7 +103,7 @@ def filter_asset_file(asset_file):
 
 def get_files_from_directory(folder):
     vehicle_folder = os.path.join(folder, "res", "models", "model", "vehicle")
-    ignore_terms = ["menu", "menue", "beladen", "fake", "gedreht", "zusatz", "group", "deko", "tafel"]
+    ignore_terms = ["menu", "menue", "menu", "beladen", "fake", "gedreht", "zusatz", "group", "deko", "tafel", "load"]
 
     full_path_vehicle_files = []
     vehicle_files = []
@@ -59,7 +112,7 @@ def get_files_from_directory(folder):
         for file in files:
 
             if file.endswith(".mdl") and all(
-                    term.lower() not in root and term.lower() not in file for term in ignore_terms):
+                    term.lower() not in root.lower() and term.lower() not in file.lower() for term in ignore_terms):
                 full_path_vehicle_files.append(os.path.join(root, file))
                 vehicle_files.append(file)
 
