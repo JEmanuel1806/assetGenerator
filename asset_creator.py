@@ -44,7 +44,7 @@ def filter_asset_file(asset_file):
     # some default values are already locked in
     lines = asset_file_content.splitlines(keepends=True)
     result_content = []
-    forbidden_terms = ["zugschluss", "panto_up", "zugschlussleuchte", "licht_rot", "licht_weiss"]
+    forbidden_terms = ["zugschluss", "panto_up", "zugschlussleuchte", "emissive"]
 
     in_block = False
     nesting_level = 0
@@ -122,41 +122,34 @@ def get_files_from_directory(folder):
 
 def copy_asset_files(folder, selected_files):
     asset_folder = os.path.join(folder, "res", "models", "model", "asset")
-
-    file_paths = []
-    asset_files = []
-
+    os.makedirs(asset_folder, exist_ok=True)
     print("Generating assets...")
 
-    os.makedirs(asset_folder, exist_ok=True)
+    asset_path_pair = []
+
     for file in selected_files:
-        shutil.copy(file, asset_folder)
-        file_paths.append(file)
+        basename = os.path.basename(file)
+        dst_path = os.path.join(asset_folder, basename)
+        shutil.copy(file, dst_path)
+        filter_asset_file(dst_path)
+        asset_path_pair.append((file, basename))
 
-    for root, dirs, files in os.walk(asset_folder):
-        for file in files:
-            if file.endswith(".mdl"):
-                filter_asset_file(os.path.join(root, file))
-                asset_files.append(file)
-
-    return asset_files, file_paths
+    return asset_path_pair
 
 
 # replace the content of the template con file with the acquired info
 # ui preview
 # mdl files
 # and some smaller parameter
-def create_con(folder, asset_files, mdl_paths):
+def create_con(folder, mdl_path_pair):
     con_folder = os.path.join(folder, "res", "construction")
     con_name = f"{con_folder.split('/')[-1].split('_')[-2]}_asset.con"
 
     asset_file_path = []
     icon_path = []
 
-    for asset_file_name in asset_files:
+    for mdl_path, asset_file_name in mdl_path_pair:
         asset_file_path.append("asset/" + asset_file_name)
-
-    for mdl_path in mdl_paths:
         parts = os.path.normpath(mdl_path).split(os.sep)
         vehicle_index = parts.index("vehicle")
         relative_parts = parts[vehicle_index + 1:]  # get relative path of mdl file (waggon/..)
@@ -196,7 +189,7 @@ def create_con(folder, asset_files, mdl_paths):
         con_file = con_file.replace("#get_params", "local trax = positionx.getValue(params)")
         con_file = con_file.replace("#rail_height", "if params.position == 1 then height = 1.05 end")
         con_file = con_file.replace("#asset_type", '"ASSET_TRACK"')
-        con_file = con_file.replace("#categories", f'"{current_vehicle_type}"')
+        con_file = con_file.replace("#categories", f'"tracks"')
     # for the rest we dont need that
     else:
         con_file = con_file.replace("#height_params", "assetmodel.params,")
@@ -238,8 +231,8 @@ def generate_assets(folder, checkbox_value_pairs):
         if boolean_val.get():
             selected_files.append(file)
 
-    asset_files, mdl_paths = copy_asset_files(folder, selected_files)
-    con_name = create_con(folder, asset_files, mdl_paths)
+    mdl_path_pair = copy_asset_files(folder, selected_files)
+    con_name = create_con(folder, mdl_path_pair)
     create_menu_icon(folder, con_name)
     add_script(folder)
 
