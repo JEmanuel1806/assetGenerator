@@ -3,20 +3,18 @@ import re
 
 import shutil
 
-import app
-
-# bunch of utility functions for cleaning, removing, copying and reordering the data
-# actual logic of creating the assets
-
-global current_vehicle_type  # global for now
+global current_vehicle_type
 
 
 # throw out the metadata and other unnecessary garbage
+# first we throw out the metdata block
+# then we filter out blocks inside the children that contain lights or other objects
+# that are not supposed to exist with assets (lights, end lights or other stuff)
 def filter_asset_file(asset_file):
     with open(asset_file, "r") as af:
         asset_file_content = af.read()
 
-    # Throw out metadata
+    # throw out metadata
     pattern = re.compile(r'metadata\s*=\s*\{', re.DOTALL)
     match = pattern.search(asset_file_content)
 
@@ -37,13 +35,16 @@ def filter_asset_file(asset_file):
     if metadata_content:
         asset_file_content = asset_file_content.replace(metadata_content, "")
     if not match:
-        print("No metadata block found.")
         return
 
     # filter out ligths etc..
+    # basic idea is to reconstruct the file by just leaving out blocks inside the children blocks,
+    # which contain stuff like lights, zugschluss, etc. that shouldnt appear with assets
+    # the user can specify the things he would like to ignore or filter out
+    # some default values are already locked in
     lines = asset_file_content.splitlines(keepends=True)
     result_content = []
-    forbidden_terms = ["emissive", "zugschluss", "licht_oben", "panto_up", "zugschlussleuchte"]
+    forbidden_terms = ["zugschluss", "panto_up", "zugschlussleuchte", "licht_rot", "licht_weiss"]
 
     in_block = False
     nesting_level = 0
@@ -54,7 +55,6 @@ def filter_asset_file(asset_file):
     for line in lines:
         line_s = line.strip()
 
-        # Start of children block
         if not in_block and line_s.startswith("children"):
             in_block = True
             nesting_level = line_s.count("{") - line_s.count("}")
@@ -64,7 +64,6 @@ def filter_asset_file(asset_file):
         if in_block:
             nesting_level += line_s.count("{") - line_s.count("}")
 
-            # Inner block
             if not in_subblock and "{" in line_s:
                 in_subblock = True
                 block_lines = []
@@ -78,14 +77,17 @@ def filter_asset_file(asset_file):
                 if sub_nesting == 0:
                     in_subblock = False
                     full_block = ''.join(block_lines).lower()
+
                     if any(term in full_block for term in forbidden_terms):
-                        print(full_block)
+                        pass
+
                     else:
                         result_content.extend(block_lines)
                     block_lines = []
 
             if nesting_level == 0:
-                result_content.append(line)
+                result_content.append(
+                    line)  # not 100% why this is needed, but otherwise the last parenthesis goes missing
                 in_block = False
 
         else:
@@ -96,10 +98,6 @@ def filter_asset_file(asset_file):
 
     print("Threw out metadata for " + asset_file)
 
-
-# just copy everything that should be an asset from the mdls to the assets
-# filter some terms by default
-# manual filtering is possible
 
 def get_files_from_directory(folder):
     vehicle_folder = os.path.join(folder, "res", "models", "model", "vehicle")
@@ -122,10 +120,6 @@ def get_files_from_directory(folder):
     return vehicle_files, full_path_vehicle_files
 
 
-def get_ui_path(folder):
-    ui_path = os.path.join(folder, "textures", "ui", "models_20", "vehicle")
-
-
 def copy_asset_files(folder, selected_files):
     asset_folder = os.path.join(folder, "res", "models", "model", "asset")
 
@@ -136,8 +130,8 @@ def copy_asset_files(folder, selected_files):
 
     os.makedirs(asset_folder, exist_ok=True)
     for file in selected_files:
-        print("Copying" + file)
         shutil.copy(file, asset_folder)
+        file_paths.append(file)
 
     for root, dirs, files in os.walk(asset_folder):
         for file in files:
@@ -156,7 +150,6 @@ def create_con(folder, asset_files, mdl_paths):
     con_folder = os.path.join(folder, "res", "construction")
     con_name = f"{con_folder.split('/')[-1].split('_')[-2]}_asset.con"
 
-    # asset file paths for con (asset/x.mdl)
     asset_file_path = []
     icon_path = []
 
@@ -166,8 +159,8 @@ def create_con(folder, asset_files, mdl_paths):
     for mdl_path in mdl_paths:
         parts = os.path.normpath(mdl_path).split(os.sep)
         vehicle_index = parts.index("vehicle")
-        relative_parts = parts[vehicle_index + 1:]  # only need part after "vehicle"
-        relative_path = "ui/models_small/vehicle/" + "/".join(relative_parts)  # con requires forward slashes
+        relative_parts = parts[vehicle_index + 1:]  # get relative path of mdl file (waggon/..)
+        relative_path = "ui/models_small/vehicle/" + "/".join(relative_parts)
         relative_path = relative_path.replace(".mdl", "@2x.tga")
         icon_path.append(relative_path)
 
@@ -179,7 +172,6 @@ def create_con(folder, asset_files, mdl_paths):
     with open("template/conTemplate.lua", "r") as ct:
         con_template = ct.read()
 
-    # parameter block for trains and waggons
     train_wagon_block = """\
                     {
                     key = "position",
@@ -193,7 +185,6 @@ def create_con(folder, asset_files, mdl_paths):
                     assetmodel.params,
                     """
 
-    # replace the content of the template
     con_file = con_template
     con_file = con_file.replace("#model_icons", icon_block)
     con_file = con_file.replace("#model_values", asset_block)
@@ -220,8 +211,6 @@ def create_con(folder, asset_files, mdl_paths):
     return con_name
 
 
-# default menu item is image_00.tga from the root directoy
-# adjust it manually if user wants that
 def create_menu_icon(folder, con_name):
     asset_ui_path = os.path.join(folder, "res", "textures", "ui", "construction")
     os.makedirs(asset_ui_path, exist_ok=True)
@@ -241,7 +230,6 @@ def add_script(folder):
     shutil.copy("template/parambuilder_v1_1.lua", script_path)
 
 
-# pipeline main function that includes all steps of the pipeline process
 def generate_assets(folder, checkbox_value_pairs):
     selected_files = []
 
@@ -258,6 +246,7 @@ def generate_assets(folder, checkbox_value_pairs):
 
 # detect the type of vehicle thats being processed
 # important for later processing and distinction
+# if no vehicle is found, what are folder are you even using?
 def validate_vehicle_type(folder):
     required_file = "mod.lua"
     vehicle_paths = {
@@ -284,7 +273,3 @@ def validate_vehicle_type(folder):
 
     print("Not a supported mod type.")
     return False
-
-# handles the preview of the ui pic
-# use the default image_00.tga from the directory
-# let user select it manually if desired
